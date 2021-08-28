@@ -75,6 +75,11 @@ export class PingController {
   @get('/categories')
   //@response(200, PING_RESPONSE)
   async index() {
+    await this.categoryRepository.create({
+      id: uuid().toString(),
+      name: 'new-category',
+      description: 'testando a primeira criação'
+    });
     const result = await this.categoryRepository.find();
     return result;
   }

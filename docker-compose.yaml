@@ -13,7 +13,7 @@ services:
       - .:/home/node/app
     networks:
       - app-network
-      - micro-rabbitmq_micro-catalog
+    #  - micro-rabbitmq_micro-catalog
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
@@ -34,12 +34,12 @@ services:
     networks:
       - app-network
 
-volumes:
-  elasticdata2:
-    driver: local
+#volumes:
+#  elasticdata2:
+#    driver: local
 
 networks:
   app-network:
     driver: bridge
-  micro-rabbitmq_micro-catalog:
-    external: true
+#  micro-rabbitmq_micro-catalog:
+#    external: true

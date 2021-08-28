@@ -83,7 +83,7 @@ export class PingController {
   //@response(200, PING_RESPONSE)
   async create() {
     const result = await this.categoryRepository.create({
-      id: uuid(),
+      id: uuid().toString(),
       name: 'new-category',
       description: 'testando a primeira criação'
     });

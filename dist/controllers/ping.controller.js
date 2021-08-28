@@ -64,7 +64,7 @@ let PingController = class PingController {
     //@response(200, PING_RESPONSE)
     async create() {
         const result = await this.categoryRepository.create({
-            id: uuidv4_1.uuid(),
+            id: uuidv4_1.uuid().toString(),
             name: 'new-category',
             description: 'testando a primeira criação'
         });

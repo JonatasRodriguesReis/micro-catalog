@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
 
@@ -9,12 +10,39 @@ const config = {
   debug: process.env.APP_ENV === 'dev',
   defaultSize: '50',
   configuration: {
-    node: process.env.ELASTIC_SEARCH_HOST,
-    requestTimeout: process.env.ELASTIC_SEARCH_REQUEST_TIMEOUT,
-    pingTimeout: process.env.ELASTIC_SEARCH_PING_TIMEOUT
+    node: "http://elasticsearch:9200",
+    requestTimeout: 30000,
+    pingTimeout: 3000
   },
   mappingProperties: {
-
+    description: {
+      type: "text",
+    },
+    docType: {
+      type: "keyword",
+      index: true
+    },
+    id: {
+      type: "keyword",
+    },
+    name: {
+      type: "text",
+      fields: {
+        keyword: {
+          type: "keyword",
+          "ignore_above": 256
+        }
+      }
+    },
+    isActive: {
+      type: "boolean"
+    },
+    createdAt: {
+      type: "date",
+    },
+    updatedAt: {
+      type: "date",
+    }
   }
 };
 

@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.setupApplication = void 0;
-const __1 = require("../..");
 const testlab_1 = require("@loopback/testlab");
+const __1 = require("../..");
 async function setupApplication() {
     const restConfig = testlab_1.givenHttpServerConfig({
     // Customize the server configuration here.
@@ -16,6 +16,7 @@ async function setupApplication() {
     });
     await app.boot();
     await app.start();
+    // @ts-ignore
     const client = testlab_1.createRestAppClient(app);
     return { app, client };
 }

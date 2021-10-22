@@ -15,6 +15,7 @@ async function exportOpenApiSpec() {
     const outFile = (_c = process.argv[2]) !== null && _c !== void 0 ? _c : '';
     const app = new application_1.MicroCatalogApplication(config);
     await app.boot();
+    //@ts-ignore
     await app.exportOpenApiSpec(outFile);
 }
 exportOpenApiSpec().catch(err => {

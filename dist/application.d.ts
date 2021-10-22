@@ -1,6 +1,4 @@
-import { ApplicationConfig } from '@loopback/core';
-import { RestApplication } from '@loopback/rest';
-export { ApplicationConfig };
+import { Application, ApplicationConfig } from '@loopback/core';
 declare const MicroCatalogApplication_base: (new (...args: any[]) => {
     projectRoot: string;
     bootOptions?: import("@loopback/boot").BootOptions | undefined;
@@ -8,7 +6,7 @@ declare const MicroCatalogApplication_base: (new (...args: any[]) => {
     start(): Promise<void>;
     boot(): Promise<void>;
     booters(...booterCls: import("@loopback/core").Constructor<import("@loopback/boot").Booter>[]): import("@loopback/boot").Binding<any>[];
-    applicationBooter(subApp: import("@loopback/core").Application & import("@loopback/boot").Bootable, filter?: import("@loopback/core").BindingFilter | undefined): import("@loopback/boot").Binding<import("@loopback/boot").Booter>;
+    applicationBooter(subApp: Application & import("@loopback/boot").Bootable, filter?: import("@loopback/core").BindingFilter | undefined): import("@loopback/boot").Binding<import("@loopback/boot").Booter>;
     component<C extends import("@loopback/core").Component = import("@loopback/core").Component>(componentCtor: import("@loopback/core").Constructor<C>, nameOrOptions?: string | import("@loopback/core").BindingFromClassOptions | undefined): import("@loopback/boot").Binding<C>;
     mountComponentBooters(componentInstanceOrClass: import("@loopback/core").Constructor<unknown> | import("@loopback/boot").InstanceWithBooters): void;
     readonly options: ApplicationConfig;
@@ -33,7 +31,7 @@ declare const MicroCatalogApplication_base: (new (...args: any[]) => {
     emitEvent: <T_6 extends import("@loopback/core").ContextEvent>(type: string, event: T_6) => void;
     emitError: (err: unknown) => void;
     bind: <ValueType = any>(key: import("@loopback/core").BindingAddress<ValueType>) => import("@loopback/boot").Binding<ValueType>;
-    add: (binding: import("@loopback/boot").Binding<unknown>) => import("@loopback/core").Application;
+    add: (binding: import("@loopback/boot").Binding<unknown>) => Application;
     configure: <ConfigValueType = any>(key?: import("@loopback/core").BindingAddress<unknown> | undefined) => import("@loopback/boot").Binding<ConfigValueType>;
     getConfigAsValueOrPromise: <ConfigValueType_1>(key: import("@loopback/core").BindingAddress<unknown>, propertyPath?: string | undefined, resolutionOptions?: import("@loopback/core").ResolutionOptions | undefined) => import("@loopback/core").ValueOrPromise<ConfigValueType_1 | undefined>;
     getConfig: <ConfigValueType_2>(key: import("@loopback/core").BindingAddress<unknown>, propertyPath?: string | undefined, resolutionOptions?: import("@loopback/core").ResolutionOptions | undefined) => Promise<ConfigValueType_2 | undefined>;
@@ -71,25 +69,25 @@ declare const MicroCatalogApplication_base: (new (...args: any[]) => {
     toJSON: () => import("@loopback/core").JSONObject;
     inspect: (options?: import("@loopback/core").ContextInspectOptions | undefined) => import("@loopback/core").JSONObject;
     on: {
-        (eventName: "bind" | "unbind", listener: import("@loopback/core").ContextEventListener): import("@loopback/core").Application;
-        (event: string | symbol, listener: (...args: any[]) => void): import("@loopback/core").Application;
+        (eventName: "bind" | "unbind", listener: import("@loopback/core").ContextEventListener): Application;
+        (event: string | symbol, listener: (...args: any[]) => void): Application;
     };
     once: {
-        (eventName: "bind" | "unbind", listener: import("@loopback/core").ContextEventListener): import("@loopback/core").Application;
-        (event: string | symbol, listener: (...args: any[]) => void): import("@loopback/core").Application;
+        (eventName: "bind" | "unbind", listener: import("@loopback/core").ContextEventListener): Application;
+        (event: string | symbol, listener: (...args: any[]) => void): Application;
     };
-    addListener: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
-    removeListener: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
-    off: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
-    removeAllListeners: (event?: string | symbol | undefined) => import("@loopback/core").Application;
-    setMaxListeners: (n: number) => import("@loopback/core").Application;
+    addListener: (event: string | symbol, listener: (...args: any[]) => void) => Application;
+    removeListener: (event: string | symbol, listener: (...args: any[]) => void) => Application;
+    off: (event: string | symbol, listener: (...args: any[]) => void) => Application;
+    removeAllListeners: (event?: string | symbol | undefined) => Application;
+    setMaxListeners: (n: number) => Application;
     getMaxListeners: () => number;
     listeners: (event: string | symbol) => Function[];
     rawListeners: (event: string | symbol) => Function[];
     emit: (event: string | symbol, ...args: any[]) => boolean;
     listenerCount: (type: string | symbol) => number;
-    prependListener: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
-    prependOnceListener: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
+    prependListener: (event: string | symbol, listener: (...args: any[]) => void) => Application;
+    prependOnceListener: (event: string | symbol, listener: (...args: any[]) => void) => Application;
     eventNames: () => (string | symbol)[];
 }) & (new (...args: any[]) => {
     serviceProvider<S_1>(provider: import("@loopback/core").Constructor<import("@loopback/core").Provider<S_1>>, nameOrOptions?: string | import("@loopback/core").ServiceOptions | undefined): import("@loopback/boot").Binding<S_1>;
@@ -118,7 +116,7 @@ declare const MicroCatalogApplication_base: (new (...args: any[]) => {
     emitEvent: <T_6_1 extends import("@loopback/core").ContextEvent>(type: string, event: T_6_1) => void;
     emitError: (err: unknown) => void;
     bind: <ValueType_10 = any>(key: import("@loopback/core").BindingAddress<ValueType_10>) => import("@loopback/boot").Binding<ValueType_10>;
-    add: (binding: import("@loopback/boot").Binding<unknown>) => import("@loopback/core").Application;
+    add: (binding: import("@loopback/boot").Binding<unknown>) => Application;
     configure: <ConfigValueType_4 = any>(key?: import("@loopback/core").BindingAddress<unknown> | undefined) => import("@loopback/boot").Binding<ConfigValueType_4>;
     getConfigAsValueOrPromise: <ConfigValueType_1_1>(key: import("@loopback/core").BindingAddress<unknown>, propertyPath?: string | undefined, resolutionOptions?: import("@loopback/core").ResolutionOptions | undefined) => import("@loopback/core").ValueOrPromise<ConfigValueType_1_1 | undefined>;
     getConfig: <ConfigValueType_2_1>(key: import("@loopback/core").BindingAddress<unknown>, propertyPath?: string | undefined, resolutionOptions?: import("@loopback/core").ResolutionOptions | undefined) => Promise<ConfigValueType_2_1 | undefined>;
@@ -156,25 +154,25 @@ declare const MicroCatalogApplication_base: (new (...args: any[]) => {
     toJSON: () => import("@loopback/core").JSONObject;
     inspect: (options?: import("@loopback/core").ContextInspectOptions | undefined) => import("@loopback/core").JSONObject;
     on: {
-        (eventName: "bind" | "unbind", listener: import("@loopback/core").ContextEventListener): import("@loopback/core").Application;
-        (event: string | symbol, listener: (...args: any[]) => void): import("@loopback/core").Application;
+        (eventName: "bind" | "unbind", listener: import("@loopback/core").ContextEventListener): Application;
+        (event: string | symbol, listener: (...args: any[]) => void): Application;
     };
     once: {
-        (eventName: "bind" | "unbind", listener: import("@loopback/core").ContextEventListener): import("@loopback/core").Application;
-        (event: string | symbol, listener: (...args: any[]) => void): import("@loopback/core").Application;
+        (eventName: "bind" | "unbind", listener: import("@loopback/core").ContextEventListener): Application;
+        (event: string | symbol, listener: (...args: any[]) => void): Application;
     };
-    addListener: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
-    removeListener: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
-    off: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
-    removeAllListeners: (event?: string | symbol | undefined) => import("@loopback/core").Application;
-    setMaxListeners: (n: number) => import("@loopback/core").Application;
+    addListener: (event: string | symbol, listener: (...args: any[]) => void) => Application;
+    removeListener: (event: string | symbol, listener: (...args: any[]) => void) => Application;
+    off: (event: string | symbol, listener: (...args: any[]) => void) => Application;
+    removeAllListeners: (event?: string | symbol | undefined) => Application;
+    setMaxListeners: (n: number) => Application;
     getMaxListeners: () => number;
     listeners: (event: string | symbol) => Function[];
     rawListeners: (event: string | symbol) => Function[];
     emit: (event: string | symbol, ...args: any[]) => boolean;
     listenerCount: (type: string | symbol) => number;
-    prependListener: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
-    prependOnceListener: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
+    prependListener: (event: string | symbol, listener: (...args: any[]) => void) => Application;
+    prependOnceListener: (event: string | symbol, listener: (...args: any[]) => void) => Application;
     eventNames: () => (string | symbol)[];
 }) & (new (...args: any[]) => {
     repository<R extends import("@loopback/repository").Repository<any>>(repoClass: import("@loopback/repository").Class<R>, nameOrOptions?: string | import("@loopback/core").BindingFromClassOptions | undefined): import("@loopback/boot").Binding<R>;
@@ -208,7 +206,7 @@ declare const MicroCatalogApplication_base: (new (...args: any[]) => {
     emitEvent: <T_6_2 extends import("@loopback/core").ContextEvent>(type: string, event: T_6_2) => void;
     emitError: (err: unknown) => void;
     bind: <ValueType_11 = any>(key: import("@loopback/core").BindingAddress<ValueType_11>) => import("@loopback/boot").Binding<ValueType_11>;
-    add: (binding: import("@loopback/boot").Binding<unknown>) => import("@loopback/core").Application;
+    add: (binding: import("@loopback/boot").Binding<unknown>) => Application;
     configure: <ConfigValueType_5 = any>(key?: import("@loopback/core").BindingAddress<unknown> | undefined) => import("@loopback/boot").Binding<ConfigValueType_5>;
     getConfigAsValueOrPromise: <ConfigValueType_1_2>(key: import("@loopback/core").BindingAddress<unknown>, propertyPath?: string | undefined, resolutionOptions?: import("@loopback/core").ResolutionOptions | undefined) => import("@loopback/core").ValueOrPromise<ConfigValueType_1_2 | undefined>;
     getConfig: <ConfigValueType_2_2>(key: import("@loopback/core").BindingAddress<unknown>, propertyPath?: string | undefined, resolutionOptions?: import("@loopback/core").ResolutionOptions | undefined) => Promise<ConfigValueType_2_2 | undefined>;
@@ -246,27 +244,28 @@ declare const MicroCatalogApplication_base: (new (...args: any[]) => {
     toJSON: () => import("@loopback/core").JSONObject;
     inspect: (options?: import("@loopback/core").ContextInspectOptions | undefined) => import("@loopback/core").JSONObject;
     on: {
-        (eventName: "bind" | "unbind", listener: import("@loopback/core").ContextEventListener): import("@loopback/core").Application;
-        (event: string | symbol, listener: (...args: any[]) => void): import("@loopback/core").Application;
+        (eventName: "bind" | "unbind", listener: import("@loopback/core").ContextEventListener): Application;
+        (event: string | symbol, listener: (...args: any[]) => void): Application;
     };
     once: {
-        (eventName: "bind" | "unbind", listener: import("@loopback/core").ContextEventListener): import("@loopback/core").Application;
-        (event: string | symbol, listener: (...args: any[]) => void): import("@loopback/core").Application;
+        (eventName: "bind" | "unbind", listener: import("@loopback/core").ContextEventListener): Application;
+        (event: string | symbol, listener: (...args: any[]) => void): Application;
     };
-    addListener: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
-    removeListener: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
-    off: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
-    removeAllListeners: (event?: string | symbol | undefined) => import("@loopback/core").Application;
-    setMaxListeners: (n: number) => import("@loopback/core").Application;
+    addListener: (event: string | symbol, listener: (...args: any[]) => void) => Application;
+    removeListener: (event: string | symbol, listener: (...args: any[]) => void) => Application;
+    off: (event: string | symbol, listener: (...args: any[]) => void) => Application;
+    removeAllListeners: (event?: string | symbol | undefined) => Application;
+    setMaxListeners: (n: number) => Application;
     getMaxListeners: () => number;
     listeners: (event: string | symbol) => Function[];
     rawListeners: (event: string | symbol) => Function[];
     emit: (event: string | symbol, ...args: any[]) => boolean;
     listenerCount: (type: string | symbol) => number;
-    prependListener: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
-    prependOnceListener: (event: string | symbol, listener: (...args: any[]) => void) => import("@loopback/core").Application;
+    prependListener: (event: string | symbol, listener: (...args: any[]) => void) => Application;
+    prependOnceListener: (event: string | symbol, listener: (...args: any[]) => void) => Application;
     eventNames: () => (string | symbol)[];
-}) & typeof RestApplication;
+}) & typeof Application;
 export declare class MicroCatalogApplication extends MicroCatalogApplication_base {
     constructor(options?: ApplicationConfig);
 }
+export {};

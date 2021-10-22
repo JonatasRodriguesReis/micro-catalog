@@ -10,11 +10,40 @@ export declare class Esv7DataSource extends juggler.DataSource implements LifeCy
         debug: boolean;
         defaultSize: string;
         configuration: {
-            node: string | undefined;
-            requestTimeout: string | undefined;
-            pingTimeout: string | undefined;
+            node: string;
+            requestTimeout: number;
+            pingTimeout: number;
         };
-        mappingProperties: {};
+        mappingProperties: {
+            description: {
+                type: string;
+            };
+            docType: {
+                type: string;
+                index: boolean;
+            };
+            id: {
+                type: string;
+            };
+            name: {
+                type: string;
+                fields: {
+                    keyword: {
+                        type: string;
+                        ignore_above: number;
+                    };
+                };
+            };
+            isActive: {
+                type: string;
+            };
+            createdAt: {
+                type: string;
+            };
+            updatedAt: {
+                type: string;
+            };
+        };
     };
     constructor(dsConfig?: object);
 }

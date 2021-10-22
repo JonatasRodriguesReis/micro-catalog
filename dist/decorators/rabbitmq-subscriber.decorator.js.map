@@ -1,0 +1,1 @@
+{"version":3,"file":"rabbitmq-subscriber.decorator.js","sourceRoot":"","sources":["../../src/decorators/rabbitmq-subscriber.decorator.ts"],"names":[],"mappings":";;;AAAA,iDAA0D;AAU7C,QAAA,6BAA6B,GAAG,6BAA6B,CAAC;AAE3E,SAAgB,kBAAkB,CAAC,IAAgC;IACjE,OAAO,iCAAsB,CAAC,eAAe,CAC3C,qCAA6B,EAAE,IAAI,CACpC,CAAA;AACH,CAAC;AAJD,gDAIC"}

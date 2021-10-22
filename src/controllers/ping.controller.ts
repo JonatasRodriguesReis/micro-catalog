@@ -78,7 +78,9 @@ export class PingController {
     await this.categoryRepository.create({
       id: uuid().toString(),
       name: 'new-category',
-      description: 'testando a primeira criação'
+      description: 'testando a primeira criação',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     });
     const result = await this.categoryRepository.find();
     return result;

@@ -1,4 +1,6 @@
-import {config} from 'dotenv';
+import {config as loadenv} from 'dotenv';
 import {join} from 'path';
 
-config({path: join(__dirname, '..', '.env')});
+loadenv({path: join(__dirname, '../.env')});
+
+console.log('config .env', process.env.ELASTIC_SEARCH_HOST);

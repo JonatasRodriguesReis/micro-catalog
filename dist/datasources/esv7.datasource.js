@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Esv7DataSource = void 0;
 const tslib_1 = require("tslib");
+/* eslint-disable @typescript-eslint/naming-convention */
 const core_1 = require("@loopback/core");
 const repository_1 = require("@loopback/repository");
 const config = {
@@ -12,11 +13,40 @@ const config = {
     debug: process.env.APP_ENV === 'dev',
     defaultSize: '50',
     configuration: {
-        node: process.env.ELASTIC_SEARCH_HOST,
-        requestTimeout: process.env.ELASTIC_SEARCH_REQUEST_TIMEOUT,
-        pingTimeout: process.env.ELASTIC_SEARCH_PING_TIMEOUT
+        node: "http://elasticsearch:9200",
+        requestTimeout: 30000,
+        pingTimeout: 3000
     },
-    mappingProperties: {}
+    mappingProperties: {
+        description: {
+            type: "text",
+        },
+        docType: {
+            type: "keyword",
+            index: true
+        },
+        id: {
+            type: "keyword",
+        },
+        name: {
+            type: "text",
+            fields: {
+                keyword: {
+                    type: "keyword",
+                    "ignore_above": 256
+                }
+            }
+        },
+        isActive: {
+            type: "boolean"
+        },
+        createdAt: {
+            type: "date",
+        },
+        updatedAt: {
+            type: "date",
+        }
+    }
 };
 console.log(config);
 // Observe application's life cycle to disconnect the datasource when

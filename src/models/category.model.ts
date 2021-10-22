@@ -19,8 +19,31 @@ export class Category extends Entity {
 
   @property({
     type: 'string',
+    required: false,
+    default: ''
   })
   description?: string;
+
+  @property({
+    type: "boolean",
+    required: false,
+    default: true
+  })
+  isActive: boolean;
+
+  @property({
+    name: 'createdAt',
+    type: 'date',
+    required: true
+  })
+  createdAt: String;
+
+  @property({
+    name: 'updatedAt',
+    type: 'date',
+    required: true
+  })
+  updatedAt: String;
 
   // Define well-known properties here
 

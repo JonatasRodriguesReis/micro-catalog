@@ -1,16 +1,16 @@
 "use strict";
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.main = void 0;
-const tslib_1 = require("tslib");
+exports.main = exports.MicroCatalogApplication = void 0;
 const application_1 = require("./application");
+Object.defineProperty(exports, "MicroCatalogApplication", { enumerable: true, get: function () { return application_1.MicroCatalogApplication; } });
 require("./bootstrap");
-tslib_1.__exportStar(require("./application"), exports);
 async function main(options = {}) {
     const app = new application_1.MicroCatalogApplication(options);
     await app.boot();
     await app.start();
-    const url = app.restServer.url;
+    const restServer = app.getSync('servers.RestServer');
+    const url = restServer.url;
     console.log(`Server is running at ${url}`);
     console.log(`Try ${url}/ping`);
     return app;
@@ -33,6 +33,13 @@ if (require.main === module) {
                 setServersFromRequest: true,
             },
         },
+        rabbitmq: {
+            uri: process.env.RABBITMQ_URI,
+            exchanges: [
+                { name: 'test1', type: 'direct' },
+                { name: 'test2', type: 'direct' }
+            ]
+        }
     };
     main(config).catch(err => {
         console.error('Cannot start the application.', err);

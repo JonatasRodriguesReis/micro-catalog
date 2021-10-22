@@ -1,8 +1,10 @@
+import { Message } from 'amqplib/properties';
 import { CastMemberRepository } from '../repositories';
 export declare class CastMemberService {
     private castMemberRepo;
     constructor(castMemberRepo: CastMemberRepository);
-    handlerCreated({ data }: any): Promise<void>;
-    handlerUpdated({ data }: any): Promise<void>;
-    handlerDeleted({ data }: any): Promise<void>;
+    handler({ data, message }: {
+        data: any;
+        message: Message;
+    }): Promise<void>;
 }

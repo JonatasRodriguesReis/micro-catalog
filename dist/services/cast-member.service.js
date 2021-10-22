@@ -10,56 +10,32 @@ let CastMemberService = class CastMemberService {
     constructor(castMemberRepo) {
         this.castMemberRepo = castMemberRepo;
     }
-    async handlerCreated({ data }) {
-        console.log('created', data);
-        const { id, name, type } = data;
-        await this.castMemberRepo.create({
-            id, name, type
-        });
-    }
-    async handlerUpdated({ data }) {
-        console.log('updated', data);
-        const { id, name, type } = data;
-        await this.castMemberRepo.updateById(id, {
-            name, type
-        });
-    }
-    async handlerDeleted({ data }) {
-        console.log('deleted', data);
-        const { id } = data;
-        await this.castMemberRepo.deleteById(id);
+    async handler({ data, message }) {
+        const action = message.fields.routingKey.split('.')[2];
+        switch (action) {
+            case 'created':
+                await this.castMemberRepo.create(data);
+                break;
+            case 'updated':
+                await this.castMemberRepo.updateById(data.id, data);
+                break;
+            case 'deleted':
+                await this.castMemberRepo.deleteById(data.id);
+                break;
+        }
+        ;
     }
 };
 tslib_1.__decorate([
     decorators_1.rabbitmqSubscriber({
         exchange: 'amq.topic',
-        queue: 'castMemberCreated',
-        routingKey: 'model.castMember.created'
+        queue: 'micro-catalog/sync-videos/cast_member',
+        routingKey: 'model.cast_member.*'
     }),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", [Object]),
     tslib_1.__metadata("design:returntype", Promise)
-], CastMemberService.prototype, "handlerCreated", null);
-tslib_1.__decorate([
-    decorators_1.rabbitmqSubscriber({
-        exchange: 'amq.topic',
-        queue: 'castMemberUpdated',
-        routingKey: 'model.castMember.updated'
-    }),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [Object]),
-    tslib_1.__metadata("design:returntype", Promise)
-], CastMemberService.prototype, "handlerUpdated", null);
-tslib_1.__decorate([
-    decorators_1.rabbitmqSubscriber({
-        exchange: 'amq.topic',
-        queue: 'castMemberDeleted',
-        routingKey: 'model.castMember.deleted'
-    }),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [Object]),
-    tslib_1.__metadata("design:returntype", Promise)
-], CastMemberService.prototype, "handlerDeleted", null);
+], CastMemberService.prototype, "handler", null);
 CastMemberService = tslib_1.__decorate([
     core_1.bind({ scope: core_1.BindingScope.TRANSIENT }),
     tslib_1.__param(0, repository_1.repository(repositories_1.CastMemberRepository)),

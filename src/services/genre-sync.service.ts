@@ -1,5 +1,6 @@
 import {bind, /* inject, */ BindingScope} from '@loopback/core';
 import {repository} from '@loopback/repository';
+import {Message} from 'amqplib';
 import {rabbitmqSubscriber} from '../decorators';
 import {GenreRepository} from '../repositories';
 
@@ -12,38 +13,22 @@ export class GenreSyncService {
 
   @rabbitmqSubscriber({
     exchange: 'amq.topic',
-    queue: 'genreCreated',
-    routingKey: 'model.genre.created'
+    queue: 'micro-catalog/sync-videos/genre',
+    routingKey: 'model.genre.*'
   })
-  async handlerCreated({data}: any) {
-    console.log('created', data);
-    const {id, name, isActive} = data;
-    await this.genreRepo.create({
-      id, name, isActive
-    })
-  }
-
-  @rabbitmqSubscriber({
-    exchange: 'amq.topic',
-    queue: 'genreUpdated',
-    routingKey: 'model.genre.updated'
-  })
-  async handlerUpdated({data}: any) {
-    console.log('updated', data);
-    const {id, name, isActive} = data;
-    await this.genreRepo.updateById(id, {
-      name, isActive
-    })
-  }
-
-  @rabbitmqSubscriber({
-    exchange: 'amq.topic',
-    queue: 'genreDeleted',
-    routingKey: 'model.genre.deleted'
-  })
-  async handlerDeleted({data}: any) {
-    console.log('deleted', data);
-    const {id} = data;
-    await this.genreRepo.deleteById(id);
+  async handler({data, message}: {data: any, message: Message}) {
+    const action = message.fields.routingKey.split('.')[2];
+    switch (action) {
+      case 'created':
+        await this.genreRepo.create(data);
+        console.log('criou')
+        break;
+      case 'updated':
+        await this.genreRepo.updateById(data.id, data);
+        break;
+      case 'deleted':
+        await this.genreRepo.deleteById(data.id)
+        break;
+    };
   }
 }

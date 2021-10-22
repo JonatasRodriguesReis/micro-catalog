@@ -71,9 +71,14 @@ let RabbitmqServer = class RabbitmqServer extends context_1.Context {
                     catch (e) {
                         data = null;
                     }
-                    console.log(data);
-                    await method({ data, message, channel });
-                    channel.ack(message);
+                    try {
+                        console.log(data);
+                        await method({ data, message, channel });
+                        channel.ack(message);
+                    }
+                    catch (e) {
+                        //channel.nackAll()
+                    }
                 }
             }
             catch (e) {

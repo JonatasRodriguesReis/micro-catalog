@@ -98,9 +98,13 @@ export class RabbitmqServer extends Context implements Server {
             data = null;
           }
 
-          console.log(data);
-          await method({data, message, channel});
-          channel.ack(message);
+          try {
+            console.log(data);
+            await method({data, message, channel});
+            channel.ack(message);
+          } catch (e) {
+            //channel.nackAll()
+          }
         }
       } catch (e) {
         console.error(e);

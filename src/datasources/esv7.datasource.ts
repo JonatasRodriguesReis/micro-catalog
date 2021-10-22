@@ -37,6 +37,9 @@ const config = {
     isActive: {
       type: "boolean"
     },
+    type: {
+      type: "byte"
+    },
     createdAt: {
       type: "date",
     },

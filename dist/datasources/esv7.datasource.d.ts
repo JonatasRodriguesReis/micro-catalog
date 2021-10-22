@@ -37,6 +37,9 @@ export declare class Esv7DataSource extends juggler.DataSource implements LifeCy
             isActive: {
                 type: string;
             };
+            type: {
+                type: string;
+            };
             createdAt: {
                 type: string;
             };

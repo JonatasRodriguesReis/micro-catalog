@@ -20,7 +20,7 @@ export class Genre extends Entity {
   @property({
     type: "boolean",
     generated: false,
-    required: true,
+    required: false,
   })
   isActive: Boolean;
 

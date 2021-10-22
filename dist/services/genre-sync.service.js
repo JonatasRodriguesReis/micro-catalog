@@ -10,56 +10,33 @@ let GenreSyncService = class GenreSyncService {
     constructor(genreRepo) {
         this.genreRepo = genreRepo;
     }
-    async handlerCreated({ data }) {
-        console.log('created', data);
-        const { id, name, isActive } = data;
-        await this.genreRepo.create({
-            id, name, isActive
-        });
-    }
-    async handlerUpdated({ data }) {
-        console.log('updated', data);
-        const { id, name, isActive } = data;
-        await this.genreRepo.updateById(id, {
-            name, isActive
-        });
-    }
-    async handlerDeleted({ data }) {
-        console.log('deleted', data);
-        const { id } = data;
-        await this.genreRepo.deleteById(id);
+    async handler({ data, message }) {
+        const action = message.fields.routingKey.split('.')[2];
+        switch (action) {
+            case 'created':
+                await this.genreRepo.create(data);
+                console.log('criou');
+                break;
+            case 'updated':
+                await this.genreRepo.updateById(data.id, data);
+                break;
+            case 'deleted':
+                await this.genreRepo.deleteById(data.id);
+                break;
+        }
+        ;
     }
 };
 tslib_1.__decorate([
     decorators_1.rabbitmqSubscriber({
         exchange: 'amq.topic',
-        queue: 'genreCreated',
-        routingKey: 'model.genre.created'
+        queue: 'micro-catalog/sync-videos/genre',
+        routingKey: 'model.genre.*'
     }),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", [Object]),
     tslib_1.__metadata("design:returntype", Promise)
-], GenreSyncService.prototype, "handlerCreated", null);
-tslib_1.__decorate([
-    decorators_1.rabbitmqSubscriber({
-        exchange: 'amq.topic',
-        queue: 'genreUpdated',
-        routingKey: 'model.genre.updated'
-    }),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [Object]),
-    tslib_1.__metadata("design:returntype", Promise)
-], GenreSyncService.prototype, "handlerUpdated", null);
-tslib_1.__decorate([
-    decorators_1.rabbitmqSubscriber({
-        exchange: 'amq.topic',
-        queue: 'genreDeleted',
-        routingKey: 'model.genre.deleted'
-    }),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [Object]),
-    tslib_1.__metadata("design:returntype", Promise)
-], GenreSyncService.prototype, "handlerDeleted", null);
+], GenreSyncService.prototype, "handler", null);
 GenreSyncService = tslib_1.__decorate([
     core_1.bind({ scope: core_1.BindingScope.TRANSIENT }),
     tslib_1.__param(0, repository_1.repository(repositories_1.GenreRepository)),
